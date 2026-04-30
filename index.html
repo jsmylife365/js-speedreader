@@ -169,7 +169,7 @@ function SpeedReader() {
     setSStat("loading"); setSErr("");
     try {
       const base = sUrl.replace(/\/$/,"");
-      const res  = await fetch(`${base}/data/index.json`);
+      const res  = await fetch(`${base}/Data/index.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const titles = await res.json();
       if (!Array.isArray(titles)) throw new Error("index.json은 배열이어야 합니다");
@@ -183,11 +183,11 @@ function SpeedReader() {
   /* ── 세션 로드 ── */
   const loadItem = useCallback(async(item)=>{
     try {
-      const r = await fetch(`${item._b}/data/${item.title}.txt`);
+      const r = await fetch(`${item._b}/Data/${item.title}.txt`);
       if (!r.ok) throw new Error(`${item.title}.txt — HTTP ${r.status}`);
       setRaw(await r.text()); setTitle(item.title);
       try {
-        const ar = await fetch(`${item._b}/data/${item.title}.mp3`);
+        const ar = await fetch(`${item._b}/Data/${item.title}.mp3`);
         if (ar.ok){ setAudSrc(URL.createObjectURL(await ar.blob())); setAudName(`${item.title}.mp3`); }
         else { setAudSrc(null); setAudName(""); }
       } catch(_){ setAudSrc(null); setAudName(""); }
@@ -315,7 +315,7 @@ function SpeedReader() {
         {help&&(
           <div className="card" style={{marginBottom:"1rem",borderLeft:`3px solid ${C.primary}`}}>
             <div className="lbl">📁 업로드 파일 구조</div>
-            <pre style={{background:C.bg,borderRadius:"8px",padding:".85rem 1rem",fontSize:".78rem",lineHeight:"1.85",color:C.text,overflow:"auto"}}>{`js-speedreader/\n└── data/\n    ├── index.json  ← ["제목1","제목2"]\n    ├── 제목1.txt\n    └── 제목1.mp3   ← 없어도 됨\n\n── txt 작성법 ──────────────\n본문 문장을 그냥 쓰면 됩니다.\n줄바꿈 없이 전체를 써도 됩니다.\n\n[QUIZ]\n\n1. 문제?\n① 보기1\n② 보기2\n③ 보기3\n④ 보기4\n정답:②`}</pre>
+            <pre style={{background:C.bg,borderRadius:"8px",padding:".85rem 1rem",fontSize:".78rem",lineHeight:"1.85",color:C.text,overflow:"auto"}}>{`js-speedreader/\n└── Data/\n    ├── index.json  ← ["제목1","제목2"]\n    ├── 제목1.txt\n    └── 제목1.mp3   ← 없어도 됨`}</pre>
           </div>
         )}
         <div className="card" style={{marginBottom:"1rem"}}>
